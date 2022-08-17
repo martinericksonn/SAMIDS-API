@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -10,5 +10,16 @@ export class AccountController {
   @UseGuards(AuthGuard('api-key'))
   addAccount(@Body() body: any) {
     return this.accountService.addAccount(body);
+  }
+
+  // @Get('/get/all')
+  // getAllAccount() {
+  //   return this.userService.getAllAccounts();
+  // }
+
+  @Get('/get/:uid')
+  @UseGuards(AuthGuard('api-key'))
+  getAccount(@Param('uid') uid: string) {
+    return this.accountService.getAccount(uid);
   }
 }

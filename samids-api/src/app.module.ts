@@ -7,7 +7,7 @@ import { AttendanceModule } from './attendance/attendance.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { AccountModule } from './account/account.module';
 import { AccountService } from './account/account.service';
-import { AccountController } from './account/account.controller';
+import { AttendanceService } from './attendance/attendance.service';
 
 @Module({
   imports: [
@@ -18,6 +18,6 @@ import { AccountController } from './account/account.controller';
     AccountModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AccountService],
+  providers: [AppService, AccountService, AttendanceService],
 })
 export class AppModule {}

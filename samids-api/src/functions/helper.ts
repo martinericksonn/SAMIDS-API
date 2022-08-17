@@ -5,14 +5,23 @@ import { Attendance } from '../model/attendance.model';
 export class Helper {
   private static systemMessage = new SystemMessage();
 
-  static genID(): number {
+  static uid(): number {
     var yearNow = new Date().getFullYear();
-    console.log(yearNow);
     var datum = Date.parse(new Date().toString());
     let x = Math.floor(Math.random() * 5 + 1) * 1000;
     var uid = (datum / x).toString().slice(4);
 
     return parseInt(yearNow + uid);
+  }
+
+  static ref(): number {
+    let monthNow = (new Date().getMonth() + 1).toString();
+    let yearNow = new Date().getFullYear();
+    let datum = Date.parse(new Date().toString());
+    let x = Math.floor(Math.random() * 5 + 1) * 1000;
+    let uid = (datum / x).toString().slice(4);
+
+    return parseInt(monthNow + yearNow + uid);
   }
 
   static validAccountBody(body: any) {
@@ -60,41 +69,39 @@ export class Helper {
   }
 
   ///
-  // static validAttendanceBody(body: any) {
-  //   console.log(body);
-  //   var systemMessage = new SystemMessage();
+  static validAttendanceBody(body: any) {
+    console.log(body);
+    var systemMessage = new SystemMessage();
 
-  //   var keys: Array<string> = Helper.describeClassAttendance();
-  //   var types: Map<string, string> = new Map<string, string>();
+    var keys: Array<string> = Helper.describeClassAttendance();
+    var types: Map<string, string> = new Map<string, string>();
 
-  //   types.set('attendanceID', typeof 0);
-  //   types.set('name', typeof '');
-  //   types.set('employeeID', typeof 0);
-  //   types.set('date', typeof '');
-  //   types.set('time', typeof '');
-  //   types.set('classcode', typeof 0);
-  //   types.set('department', typeof '');
-  //   types.set('remarks', typeof '');
+    types.set('ref', typeof 0);
+    types.set('uid', typeof 0);
+    types.set('date', typeof '');
+    types.set('time', typeof '');
+    types.set('classcode', typeof '');
+    types.set('remarks', typeof '');
 
-  //   for (const key of Object.keys(body)) {
-  //     // if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
-  //     //   throw systemMessage.error(502);
-  //     // }
-  //     if (typeof body[key] != types.get(key)) {
-  //       console.log(body[key]);
-  //       console.log(types.get(key));
-  //       throw this.systemMessage.custom({
-  //         success: false,
-  //         data: `${key} is not a valid attribute`,
-  //       });
-  //     }
-  //   }
-  // }
+    for (const key of Object.keys(body)) {
+      if (!keys.includes(`${key}`) && typeof body[key] != types.get(key)) {
+        throw systemMessage.error(502);
+      }
+      if (typeof body[key] != types.get(key)) {
+        console.log(body[key]);
+        console.log(types.get(key));
+        throw this.systemMessage.custom({
+          success: false,
+          data: `${key} is not a valid attribute`,
+        });
+      }
+    }
+  }
 
-  // static describeClassAttendance(): Array<any> {
-  //   // let a = new Attendance(123, '', 123, '', '', 123, '', '');
-  //   let array = Object.getOwnPropertyNames(a);
+  static describeClassAttendance(): Array<any> {
+    let a = new Attendance(123, 123, '', '', '', '');
+    let array = Object.getOwnPropertyNames(a);
 
-  //   return array;
-  // }
+    return array;
+  }
 }

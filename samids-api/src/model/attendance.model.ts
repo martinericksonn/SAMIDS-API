@@ -4,7 +4,7 @@ export class Attendance {
     private uid: number,
     private date: string,
     public time: string,
-    private classcode: number,
+    private classcode: string,
     private remarks: string,
   ) {}
 
