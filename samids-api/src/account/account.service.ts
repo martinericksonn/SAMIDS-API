@@ -18,9 +18,10 @@ export class AccountService {
         body.email,
         body.profile ?? [],
       );
+      1;
 
       console.log(body);
-      return await DatabaseQuery.commit(newAccount);
+      //   return await DatabaseQuery.commit(newAccount);
     } catch (error) {
       return error;
     }

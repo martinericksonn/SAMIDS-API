@@ -6,8 +6,13 @@ export class Helper {
   private static systemMessage = new SystemMessage();
 
   static genID(): number {
+    var yearNow = new Date().getFullYear();
+    console.log(yearNow);
     var datum = Date.parse(new Date().toString());
-    return datum / 1000;
+    let x = Math.floor(Math.random() * 5 + 1) * 1000;
+    var uid = (datum / x).toString().slice(4);
+
+    return parseInt(yearNow + uid);
   }
 
   static validAccountBody(body: any) {
