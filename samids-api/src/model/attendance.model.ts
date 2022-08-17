@@ -1,31 +1,26 @@
 export class Attendance {
   constructor(
-    public attendanceID: number,
-    private name: string,
-    private employeeID: number,
+    public ref: number,
+    private uid: number,
     private date: string,
     public time: string,
-    private classcode:
-     number,
-    private department: string,
+    private classcode: number,
     private remarks: string,
   ) {}
 
   log() {
     console.log(
-      `${this.name} ${this.employeeID} ${this.date} ${this.time} ${this.classcode} ${this.department} ${this.remarks}`,
+      `${this.ref} ${this.uid} ${this.date} ${this.time} ${this.classcode} ${this.remarks}`,
     );
   }
 
   toJson() {
     return {
-      attendanceID: this.attendanceID,
-      name: this.name,
-      employeeID: this.employeeID,
+      ref: this.ref,
+      uid: this.uid,
       date: this.date,
       time: this.time,
       classcode: this.classcode,
-      department: this.department,
       remarks: this.remarks,
     };
   }

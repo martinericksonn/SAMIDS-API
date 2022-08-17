@@ -5,11 +5,19 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { AttendanceModule } from './attendance/attendance.module';
 import { ScheduleModule } from './schedule/schedule.module';
-import { AccountsModule } from './accounts/accounts.module';
+import { AccountModule } from './account/account.module';
+import { AccountService } from './account/account.service';
+import { AccountController } from './account/account.controller';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, AttendanceModule, ScheduleModule, AccountsModule],
+  imports: [
+    ConfigModule.forRoot(),
+    AuthModule,
+    AttendanceModule,
+    ScheduleModule,
+    AccountModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AccountService],
 })
 export class AppModule {}

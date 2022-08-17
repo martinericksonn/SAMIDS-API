@@ -1,29 +1,27 @@
+import { throws } from 'assert';
+
 export class Account {
   constructor(
-    private name: string,
-    public id: number,
-    private department: string,
-    public collegeName: string,
-    private onLeave: boolean,
-    private resigned: boolean,
-    private password: string,
+    private firstName: string,
+    private lastName: string,
+    public uid: number,
+    private email: string,
+    private profile: string[] = [],
   ) {}
 
   log() {
     console.log(
-      `${this.name} ${this.id} ${this.department} ${this.collegeName} ${this.onLeave} ${this.resigned}`,
+      `${this.firstName}  ${this.lastName} ${this.uid} ${this.email} ${this.profile}`,
     );
   }
 
   toJson() {
     return {
-      name: this.name,
-      id: this.id,
-      department: this.department,
-      collegeName: this.collegeName,
-      onLeave: this.onLeave,
-      resigned: this.resigned,
-      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      uid: this.uid,
+      email: this.email,
+      profile: this.profile,
     };
   }
 }
