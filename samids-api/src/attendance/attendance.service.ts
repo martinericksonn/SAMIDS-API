@@ -18,6 +18,7 @@ export class AttendanceService {
           if (value.success) {
             body.ref = Helper.ref();
             Helper.validAttendanceBody(body);
+
             var newAttendance: Attendance = new Attendance(
               body.ref,
               body.uid,
@@ -29,7 +30,7 @@ export class AttendanceService {
 
             return await DatabaseQuery.commitAttendance(newAttendance);
           } else {
-            throw this.systemMessage.error('employeeID not found');
+            throw this.systemMessage.error('account uid not found');
           }
         });
     } catch (error) {

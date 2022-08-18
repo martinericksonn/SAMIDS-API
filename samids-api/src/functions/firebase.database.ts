@@ -45,6 +45,7 @@ export class DatabaseQuery {
       var db = admin.firestore();
       var userRef = await db.collection(accounts).doc(id).get();
       if (!userRef.exists) {
+        1;
         throw systemMessage.error(506);
       }
 
@@ -52,6 +53,32 @@ export class DatabaseQuery {
     } catch (error) {
       console.log(error);
       return error;
+    }
+  }
+
+  static async getAllAccounts() {
+    try {
+      var db = admin.firestore();
+      var userRef = await db.collection(accounts).get();
+
+      var populatedData = [];
+
+      userRef.forEach((doc) => {
+        var data = doc.data();
+
+        var user = new Account(
+          data.firstName,
+          data.lastName,
+          data.uid,
+          data.email,
+          data.profile,
+        );
+        populatedData.push(user.toJson());
+      });
+      return systemMessage.success(populatedData);
+    } catch (error) {
+      console.log(error);
+      throw systemMessage.error(error);
     }
   }
 }

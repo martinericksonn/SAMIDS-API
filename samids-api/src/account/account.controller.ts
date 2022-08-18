@@ -12,10 +12,11 @@ export class AccountController {
     return this.accountService.addAccount(body);
   }
 
-  // @Get('/get/all')
-  // getAllAccount() {
-  //   return this.userService.getAllAccounts();
-  // }
+  @Get('/get/all')
+  @UseGuards(AuthGuard('api-key'))
+  getAllAccount() {
+    return this.accountService.getAllAccounts();
+  }
 
   @Get('/get/:uid')
   @UseGuards(AuthGuard('api-key'))

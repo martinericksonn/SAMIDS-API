@@ -6,6 +6,13 @@ import { Account } from 'src/model/account.model';
 
 @Injectable()
 export class AccountService {
+  async getAllAccounts() {
+    try {
+      return await DatabaseQuery.getAllAccounts();
+    } catch (error) {
+      return error;
+    }
+  }
   async getAccount(uid: string) {
     try {
       return await DatabaseQuery.getUser(uid);
