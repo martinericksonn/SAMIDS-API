@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AttendanceService } from './attendance.service';
 
@@ -10,5 +10,11 @@ export class AttendanceController {
   @UseGuards(AuthGuard('api-key'))
   addAttendance(@Body() body: any) {
     return this.attendanceService.addAttendance(body);
+  }
+
+  @Get('/get/all')
+  @UseGuards(AuthGuard('api-key'))
+  getAllAttendances() {
+    return this.attendanceService.getAllAttendances();
   }
 }

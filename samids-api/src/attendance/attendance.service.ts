@@ -38,4 +38,12 @@ export class AttendanceService {
       return error;
     }
   }
+
+  async getAllAttendances() {
+    try {
+      return await DatabaseQuery.getAllAttendances();
+    } catch (error) {
+      return error;
+    }
+  }
 }
