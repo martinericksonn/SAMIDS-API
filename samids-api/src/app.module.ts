@@ -8,6 +8,8 @@ import { ScheduleModule } from './schedule/schedule.module';
 import { AccountModule } from './account/account.module';
 import { AccountService } from './account/account.service';
 import { AttendanceService } from './attendance/attendance.service';
+import { ImageModule } from './image/image.module';
+import { ImageService } from './image/image.service';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { AttendanceService } from './attendance/attendance.service';
     AttendanceModule,
     ScheduleModule,
     AccountModule,
+    ImageModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AccountService, AttendanceService],
+  providers: [AppService, AccountService, AttendanceService, ImageService],
 })
 export class AppModule {}
