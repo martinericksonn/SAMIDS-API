@@ -11,6 +11,9 @@ import { AttendanceService } from './attendance/attendance.service';
 import { ImageModule } from './image/image.module';
 import { ImageService } from './image/image.service';
 import { MulterModule } from '@nestjs/platform-express';
+import { FileInterceptorService } from './file/file.service';
+import { FileSaverService } from './file/file-saver.service';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -20,9 +23,17 @@ import { MulterModule } from '@nestjs/platform-express';
     ScheduleModule,
     AccountModule,
     ImageModule,
+    FileModule,
     MulterModule.register({ dest: './uploads' }),
   ],
   controllers: [AppController],
-  providers: [AppService, AccountService, AttendanceService, ImageService],
+  providers: [
+    AppService,
+    AccountService,
+    AttendanceService,
+    ImageService,
+    FileInterceptorService,
+    FileSaverService,
+  ],
 })
 export class AppModule {}

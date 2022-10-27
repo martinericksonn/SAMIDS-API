@@ -1,9 +1,7 @@
 import {
-  Body,
   Controller,
-  HttpStatus,
-  ParseFilePipeBuilder,
   Post,
+  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -13,11 +11,15 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
+import { Request } from 'express';
+import { FileSaverService } from 'src/file/file-saver.service';
+import { FileInterceptorService } from 'src/file/file.service';
+
 @Controller('image')
 export class ImageController {
   constructor(
-    private fileSaverService: FileSaverServicece,
-    private fileInterceptorService: FileInterceptorServiceeptorService,
+    private fileSaverService: FileSaverService,
+    private fileInterceptorService: FileInterceptorService,
   ) {}
 
   @Post('file')
@@ -27,13 +29,30 @@ export class ImageController {
     return 'File received';
   }
 
-  @Post('test')
-  @UseInterceptors(FileInterceptor('file'))
-  async upload(@UploadedFile() file) {
-    console.log(file);
+  @Post('upload')
+  async uploadFilee(@Req() req: Request) {
+    const { files, fields } =
+      await this.fileInterceptorService.interceptRequest(req);
+
+    const folder: string = `path/to/store`;
+
+    await this.asyncForEach(files, async (file) => {
+      this.fileSaverService.saveFile(file.fileName, file.mimeType, folder);
+    });
+
+    this.fileInterceptorService.deleteFiles(files);
   }
 
-  @Post('upload')
+  async asyncForEach(
+    array: Array<any>,
+    callback: (item: any, index: number, array: Array<any>) => void,
+  ): Promise<void> {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
+
+  @Post('uploads')
   @UseGuards(AuthGuard('api-key'))
   @UseInterceptors(
     FileInterceptor('file', {
