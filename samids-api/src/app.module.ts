@@ -10,6 +10,7 @@ import { AccountService } from './account/account.service';
 import { AttendanceService } from './attendance/attendance.service';
 import { ImageModule } from './image/image.module';
 import { ImageService } from './image/image.service';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ImageService } from './image/image.service';
     ScheduleModule,
     AccountModule,
     ImageModule,
+    MulterModule.register({ dest: './uploads' }),
   ],
   controllers: [AppController],
   providers: [AppService, AccountService, AttendanceService, ImageService],
