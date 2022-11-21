@@ -108,4 +108,33 @@ export class DatabaseQuery {
       throw systemMessage.error(error);
     }
   }
+
+  static async getAttendanceByRoom(id) {
+    try {
+      var populatedData = [];
+
+      var db = admin.firestore();
+      var userRef = await db
+        .collection('attendance')
+        .where('classcode', '==', id);
+
+      userRef.forEach((doc) => {
+        var data = doc.data();
+
+        var user = new Attendance(
+          data.ref,
+          data.uid,
+          data.date,
+          data.time,
+          data.classcode,
+          data.remark,
+        );
+        populatedData.push(user.toJson());
+        return systemMessage.success(populatedData);
+      });
+    } catch (error) {
+      console.log(error);
+      throw systemMessage.error(error);
+    }
+  }
 }

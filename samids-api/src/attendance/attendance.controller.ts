@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AttendanceService } from './attendance.service';
 
@@ -17,4 +17,16 @@ export class AttendanceController {
   getAllAttendances() {
     return this.attendanceService.getAllAttendances();
   }
+
+  //get all by room
+  @Get('/get/all/:classcode')
+  @UseGuards(AuthGuard('api-key'))
+  getAttendanceByRoom(@Param('classcode') classcode: string) {
+    return this.getAttendanceByRoom(classcode);
+  }
+
+  //get by id
+  @Get('get/:id')
+  @UseGuards(AuthGuard('api-key'))
+  getAttendanceById() {}
 }

@@ -46,4 +46,12 @@ export class AttendanceService {
       return error;
     }
   }
+
+  async getAttendanceByRoom(id) {
+    try {
+      return await DatabaseQuery.getAttendanceByRoom(id);
+    } catch (error) {
+      return error;
+    }
+  }
 }
