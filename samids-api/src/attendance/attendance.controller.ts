@@ -22,12 +22,13 @@ export class AttendanceController {
   @Get('/get/all/:classcode')
   @UseGuards(AuthGuard('api-key'))
   getAttendanceByRoom(@Param('classcode') classcode: string) {
-
     return this.attendanceService.getAttendanceByRoom(classcode);
   }
 
   //get by id
   @Get('get/:id')
   @UseGuards(AuthGuard('api-key'))
-  getAttendanceById() {}
+  getAttendanceById(@Param('id') id: number) {
+    return this.attendanceService.getAttendanceById(id);
+  }
 }

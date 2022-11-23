@@ -47,14 +47,12 @@ export class SystemMessage {
 
   success(code: number | any): any {
     if (isNaN(code)) {
-      console.log(true);
       this.isSuccess = true;
       this.data = code;
       console.log('success');
       return this.toJson();
     }
     
-    console.log(true, true);
     this.isSuccess = true;
     this.data = this.systemMessage(code);
     return this.toJson();

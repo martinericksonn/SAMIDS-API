@@ -119,7 +119,46 @@ export class DatabaseQuery {
         .where('classcode', '==', id)
         .get();
 
-      if (populatedData.length == 0) throw 512;
+      if (!userRef.exist) throw 512;
+
+      userRef.forEach((doc) => {
+        var data = doc.data();
+
+        var user = new Attendance(
+          data.ref,
+          data.uid,
+          data.date,
+          data.time,
+          data.classcode,
+          data.remark,
+        );
+
+        populatedData.push(user.toJson());
+      });
+
+      return systemMessage.success(populatedData);
+    } catch (error) {
+      console.log(error);
+      throw systemMessage.error(error);
+    }
+  }
+
+  static async getAttendanceById(id) {
+    try {
+      var populatedData = [];
+      console.log(id + 10);
+      console.log(id);
+      console.log(parseInt(id) + 10);
+      console.log(parseInt(id));
+
+      var db = admin.firestore();
+      var userRef = await db
+        .collection('attendance')
+        .where('uid', '==', parseInt(id))
+        .get()
+        .then((userRef) => {
+          if (!userRef.exist) throw 512;
+        });
 
       userRef.forEach((doc) => {
         var data = doc.data();
