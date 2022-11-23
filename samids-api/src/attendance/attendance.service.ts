@@ -49,7 +49,7 @@ export class AttendanceService {
 
   async getAttendanceByRoom(id) {
     try {
-      console.log('Service');
+
       return await DatabaseQuery.getAttendanceByRoom(id);
     } catch (error) {
       return error;

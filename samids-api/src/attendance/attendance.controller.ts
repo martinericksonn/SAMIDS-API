@@ -22,7 +22,7 @@ export class AttendanceController {
   @Get('/get/all/:classcode')
   @UseGuards(AuthGuard('api-key'))
   getAttendanceByRoom(@Param('classcode') classcode: string) {
-    console.log('controller');
+
     return this.attendanceService.getAttendanceByRoom(classcode);
   }
 

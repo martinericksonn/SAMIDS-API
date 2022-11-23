@@ -119,6 +119,8 @@ export class DatabaseQuery {
         .where('classcode', '==', id)
         .get();
 
+      if (populatedData.length == 0) throw 512;
+
       userRef.forEach((doc) => {
         var data = doc.data();
 
@@ -133,6 +135,7 @@ export class DatabaseQuery {
 
         populatedData.push(user.toJson());
       });
+
       return systemMessage.success(populatedData);
     } catch (error) {
       console.log(error);
