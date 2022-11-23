@@ -49,6 +49,7 @@ export class SystemMessage {
     if (isNaN(code)) {
       this.isSuccess = true;
       this.data = code;
+      console.log('success');
       return this.toJson();
     }
 

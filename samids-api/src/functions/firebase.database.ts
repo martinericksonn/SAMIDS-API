@@ -116,7 +116,8 @@ export class DatabaseQuery {
       var db = admin.firestore();
       var userRef = await db
         .collection('attendance')
-        .where('classcode', '==', id);
+        .where('classcode', '==', id)
+        .get();
 
       userRef.forEach((doc) => {
         var data = doc.data();
@@ -129,9 +130,10 @@ export class DatabaseQuery {
           data.classcode,
           data.remark,
         );
+
         populatedData.push(user.toJson());
-        return systemMessage.success(populatedData);
       });
+      return systemMessage.success(populatedData);
     } catch (error) {
       console.log(error);
       throw systemMessage.error(error);
